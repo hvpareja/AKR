@@ -267,7 +267,7 @@ print("Res.\t#\tASA\t%Tsur.\tdASA\tExD\n");
 printf("==============================================\n");
 for my $aa (@aminoacid_collection){
     
-    printf(" %s  |\t%i\t%i\t%.2f\t%i\t%.2f\n", $aa,$number_per_res{$aa},$asa_res_total{$aa},$asa_res_rel{$aa},$denature_surface_res{$aa},$exp_res{$aa});
+    printf("_%s  |\t%i\t%i\t%.2f\t%i\t%.2f\n", $aa,$number_per_res{$aa},$asa_res_total{$aa},$asa_res_rel{$aa},$denature_surface_res{$aa},$exp_res{$aa});
     
 }
 
