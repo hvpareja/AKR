@@ -209,7 +209,7 @@ my %denature_surface_res = (
  );
 for my $key (keys(%denature_surface_res)){
     
-    $denature_surface_res{$key} = $number_per_res{$key}*$asa_res_total{$key};
+    $denature_surface_res{$key} = $number_per_res{$key}*$ASA_GXG_total{$key};
     
 }
 
@@ -240,9 +240,12 @@ my %exp_res = (
 # X: ambigueties
    #'X' => 0
  );
+
+my $sum_exp_res = 0;
 for my $key (keys(%exp_res)){
     
     $exp_res{$key} = $asa_res_total{$key}*100/$denature_surface_res{$key};
+    $sum_exp_res = $sum_exp_res + $exp_res{$key};
     
 }
 
@@ -256,15 +259,21 @@ for my $key (keys(%exp_res)){
 my $compact_degree = (1-($folded_surface/$total_surface))*100;
 
 #print "Compact degree:\n";
-printf("\n%s\t%d\t%d\t%.2f\n",$protein_name,$total_surface,$folded_surface,$compact_degree);
+printf("\n@%s\t%d\t%d\t%.2f\n",$protein_name,$total_surface,$folded_surface,$compact_degree);
 
 printf("\n\t\t\t%s\n",$protein_name);
 printf("\t--------------------------------------\n");
-print("Res.\t#\tA2\t%surf.\tDr\tCd\n");
+print("Res.\t#\tASA\t%Tsur.\tdASA\tExD\n");
+printf("==============================================\n");
 for my $aa (@aminoacid_collection){
     
-    printf("%s\t%i\t%i\t%.2f\t%i\t%.2f\n", $aa,$number_per_res{$aa},$asa_res_total{$aa},$asa_res_rel{$aa},$denature_surface_res{$aa},$exp_res{$aa});
+    printf(" %s  |\t%i\t%i\t%.2f\t%i\t%.2f\n", $aa,$number_per_res{$aa},$asa_res_total{$aa},$asa_res_rel{$aa},$denature_surface_res{$aa},$exp_res{$aa});
     
 }
+
+printf("----------------------------------------------\n");
+printf("Sum.|\t%i\t%i\t100\t%i\t%.2f\n",length($seq),$folded_surface,$total_surface,$sum_exp_res);
+printf("==============================================\n");
+
 
 print "\n";
