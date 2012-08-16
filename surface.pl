@@ -258,22 +258,48 @@ for my $key (keys(%exp_res)){
 
 my $compact_degree = (1-($folded_surface/$total_surface))*100;
 
-#print "Compact degree:\n";
-printf("\n@%s\t%d\t%d\t%.2f\n",$protein_name,$total_surface,$folded_surface,$compact_degree);
+my $shell=1;
+if($shell){
 
-printf("\n\t\t\t%s\n",$protein_name);
-printf("\t--------------------------------------\n");
-print("Res.\t#\tASA\t%Tsur.\tdASA\tExD\n");
-printf("==============================================\n");
-for my $aa (@aminoacid_collection){
+    #print "Compact degree:\n";
+    printf("\n@%s\t%d\t%d\t%.2f\n",$protein_name,$total_surface,$folded_surface,$compact_degree);
     
-    printf("_%s  |\t%i\t%i\t%.2f\t%i\t%.2f\n", $aa,$number_per_res{$aa},$asa_res_total{$aa},$asa_res_rel{$aa},$denature_surface_res{$aa},$exp_res{$aa});
+    printf("\n\t\t\t%s\n",$protein_name);
+    printf("\t--------------------------------------\n");
+    print("Res.\t#\tASA\t%Tsur.\tdASA\tExD\n");
+    printf("==============================================\n");
+    for my $aa (@aminoacid_collection){
+        
+        printf("_%s  |\t%i\t%i\t%.2f\t%i\t%.2f\n", $aa,$number_per_res{$aa},$asa_res_total{$aa},$asa_res_rel{$aa},$denature_surface_res{$aa},$exp_res{$aa});
+        
+    }
+    
+    printf("----------------------------------------------\n");
+    printf("Sum.|\t%i\t%i\t100\t%i\t%.2f\n",length($seq),$folded_surface,$total_surface,$sum_exp_res);
+    printf("==============================================\n");
+    
+    
+    print "\n";
+
+}else{
+    
+    
+    printf("<br><br>@%s\t%d\t%d\t%.2f\n<br>",$protein_name,$total_surface,$folded_surface,$compact_degree);
+    
+    print "<br><table align='center' border='1px solid'>";
+
+    printf("<tr><td align='center'>%s</td></tr>",$protein_name);
+    print("<tr><td>Res.</td><td>#</td><td>ASA</td><td>%Tsur.</td><td>dASA</td><td>ExD</td></tr>");
+    for my $aa (@aminoacid_collection){
+        
+        printf("<tr><td>%s  |</td><td>%i</td><td>%i</td><td>%.2f</td><td>%i</td><td>%.2f</td></tr>", $aa,$number_per_res{$aa},$asa_res_total{$aa},$asa_res_rel{$aa},$denature_surface_res{$aa},$exp_res{$aa});
+        
+    }
+    
+    printf("<tr><td>Sum.|</td><td>%i</td><td>%i</td><td>100</td><td>%i</td><td>%.2f</td></tr>",length($seq),$folded_surface,$total_surface,$sum_exp_res);
+    
+    
+    print "</table>";
+    
     
 }
-
-printf("----------------------------------------------\n");
-printf("Sum.|\t%i\t%i\t100\t%i\t%.2f\n",length($seq),$folded_surface,$total_surface,$sum_exp_res);
-printf("==============================================\n");
-
-
-print "\n";

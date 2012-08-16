@@ -21,8 +21,9 @@ my $dssp = new Bio::Structure::SecStr::DSSP::Res('-file' => "dssp_temp" );
 my @residues = $dssp->residues();
 
 # Print the fasta item head
-print ">$protein_name\n";
+print "<p align='justify'>>$protein_name<br>";
 
+my $counter=0;
 # Print the sequence from the coordinates file
 for my $resID (@residues){
         
@@ -33,7 +34,15 @@ for my $resID (@residues){
     if ($res eq 'a' or $res eq 'b'){ $res = 'C'; }
     
     print $res;
+    $counter++;
+    
+    if($counter == 80){
+        
+        print "<br>";
+        $counter = 0;
+        
+    }
     
 }
 
-print "\n";
+print "</p>";
